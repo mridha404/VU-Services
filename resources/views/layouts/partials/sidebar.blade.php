@@ -29,9 +29,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('search-student') }}" class="sidebar-link">Student List</a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('search-department.index') }}" class="sidebar-link">Search Department</a>
-                    </li>
+
                     <li class="sidebar-item">
                         <a href="{{ route('trackrecord') }}" class="sidebar-link">Track Records</a>
                     </li>

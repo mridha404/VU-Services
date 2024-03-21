@@ -155,10 +155,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
 
-        // search by deaprtment for students
-
-        Route::get('/search-department', [SearchDeptController::class, 'index'])->name('search-department.index');
-        Route::get('/search-department/search', [SearchDeptController::class, 'search'])->name('search-department.search');
 
 
 

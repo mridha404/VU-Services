@@ -100,9 +100,10 @@
         @endauth
 
         @guest
-            <script>
-                window.location = "{{ route('login.show') }}"; // Redirect to the login page
-            </script>
+            <?php
+            header('Location: ' . route('login.show'));
+            exit();
+            ?>
         @endguest
     </div>
 @endsection

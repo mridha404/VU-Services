@@ -14,7 +14,7 @@ class PermissionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $permissions = Permission::all();
 
         return view('permissions.index', [
@@ -27,8 +27,8 @@ class PermissionsController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function create() 
-    {   
+    public function create()
+    {
         return view('permissions.create');
     }
 
@@ -39,7 +39,7 @@ class PermissionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'name' => 'required|unique:users,name'
         ]);
@@ -73,7 +73,7 @@ class PermissionsController extends Controller
     public function update(Request $request, Permission $permission)
     {
         $request->validate([
-            'name' => 'required|unique:permissions,name,'.$permission->id
+            'name' => 'required|unique:permissions,name,' . $permission->id
         ]);
 
         $permission->update($request->only('name'));

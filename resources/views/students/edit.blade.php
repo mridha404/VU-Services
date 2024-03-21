@@ -3,7 +3,7 @@
 @extends('layouts.app-master')
 
 @section('content')
-<div class="card border-2 my-4" style="margin: 20px; padding: 20px;">
+    <div class="card border-2 my-4" style="margin: 20px; padding: 20px;">
         <h1>Edit Student</h1>
 
         <!-- Display validation errors if any -->
@@ -30,22 +30,52 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ $student->name }}" required>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $student->name }}"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ $student->email }}" required>
+                <input type="email" class="form-control" id="email" name="email" value="{{ $student->email }}"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="rollnumber" class="form-label">Roll Number</label>
-                <input type="text" class="form-control" id="rollnumber" name="rollnumber" value="{{ $student->rollnumber }}" required>
+                <input type="text" class="form-control" id="rollnumber" name="rollnumber"
+                    value="{{ $student->rollnumber }}" required>
             </div>
             <div class="mb-3">
                 <label for="mobile_number" class="form-label">Mobile Number</label>
-                <input type="text" class="form-control" id="mobile_number" name="mobile_number" value="{{ $student->mobile_number }}" required>
+                <input type="text" class="form-control" id="mobile_number" name="mobile_number"
+                    value="{{ $student->mobile_number }}" required>
             </div>
-         
+
+            <div class="mb-3">
+                <label for="department_name" class="form-label">Department Name</label>
+                <select class="form-select" id="department_name" name="department_name" required>
+                    <option value="">Please select a Department</option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="department_id" class="form-label">Department ID</label>
+                <input type="text" class="form-control" id="department_id" name="department_id" readonly required>
+                <small class="text-muted">The department ID will be updated based on your selection.</small>
+            </div>
+
+
+
+
             <button type="submit" class="btn btn-primary">Update Student</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('department_name').addEventListener('change', function() {
+            // Update the hidden department_id input with the selected department ID
+            document.getElementById('department_id').value = this.value;
+        });
+    </script>
 @endsection
