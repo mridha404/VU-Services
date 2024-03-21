@@ -20,7 +20,10 @@ use App\Http\Controllers\SearchPayServiceController;
 use App\Http\Controllers\GenerateReportController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrackRecordController;
-
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\WeatherController;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +48,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
     Route::group(['middleware' => ['guest']], function () {
+        /**
+         * Register Routes
+         */
+        // Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
+        // Route::post('/register', [RegisterController::class, 'register'])->name('register.perform');
+
 
         /**
          * Login Routes
@@ -78,14 +87,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/money/add', [MoneyController::class, 'showForm'])->name('money.add.form');
         Route::post('/money/add', [MoneyController::class, 'addMoney'])->name('money.add');
 
-        /**
-         * Payment Routes
-         */
 
-
-        Route::get('/payment', [PaymentController::class, 'showPaymentForm'])->name('payment.show');
-        Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
-        Route::get('/payment/success', [PaymentController::class, 'showTransactionHistoryOnSuccess'])->name('payment.success');
 
         /**
          * Student list Routes
@@ -109,21 +111,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
 
-        /**
-         * Payment for Services  Routes
-         */
 
 
 
-
-        // // Route::get('/payforservices/pay', [PaymentServicesController::class, 'showPaymentForm'])->name('payforservices.pay');
-        // // Route::post('/payforservices/calculate-cost', [PaymentServicesController::class, 'calculateCost'])->name('payforservices.calculate-cost');
-        // // Route::post('/payforservices/process-payment', [PaymentServicesController::class, 'processPayment'])->name('payforservices.process-payment');
-
-        // Route::get('/payforservices/pay', [PaymentServicesController::class, 'showPaymentForm'])->name('payforservices.pay');
-        // Route::post('/payforservices/process-payment', [PaymentServicesController::class, 'processPayment'])->name('payforservices.process-payment');
-        // Route::get('/payment-summary', [PaymentServicesController::class, 'showPaymentSummary'])->name('payment.summary');
-        // // Route::get('/payment/success', [PaymentServicesController::class, 'showPaymentSuccess'])->name('payment.success');
 
 
 
@@ -220,6 +210,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //Tracking Records
 
-        Route::get('/track', [TrackRecordController::class, 'trackrecord'])->name('trackrecord');
+
+
+
+        Route::get('/trackrecord', [TrackRecordController::class, 'index'])->name('trackrecord.index');
+        Route::get('/trackrecord/search', [TrackRecordController::class, 'search'])->name('trackrecord.search');
+
+
+        Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+        Route::get('/weather', [WeatherController::class, 'getWeather']);
     });
 });

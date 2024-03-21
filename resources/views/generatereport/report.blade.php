@@ -82,7 +82,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownExport">
                 <li><a class="dropdown-item" href="{{ route('export.excel') }}" onclick="exportToExcel()">Excel</a></li>
-                <li><a class="dropdown-item" href="{{ route('export.csv') }}" onclick="exportToCsv()">CSV</a></li>
+                {{-- <li><a class="dropdown-item" href="{{ route('export.csv') }}" onclick="exportToCsv()">CSV</a></li> --}}
                 <li><a class="dropdown-item" href="{{ route('export.pdf') }}" onclick="exportToPdf()">PDF</a></li>
             </ul>
         </div>
@@ -154,7 +154,7 @@
 
             <button type="button" class="btn btn-outline-primary mx-1" onclick="exportToExcel()">Export to
                 Excel</button>
-            <button type="button" class="btn btn-outline-primary mx-1" onclick="exportToCSV()">Export to CSV</button>
+            {{-- <button type="button" class="btn btn-outline-primary mx-1" onclick="exportToCSV()">Export to CSV</button> --}}
             <button type="button" class="btn btn-outline-primary mx-1" onclick="exportToPDF()">Export to PDF</button>
 
         </form>

@@ -190,12 +190,12 @@
             let totalCost = 0;
 
             generateServicesFormButton.addEventListener('click', function() {
-                // Clear previous form fields
                 servicesFormContainer.innerHTML = '';
                 errorMessageElement.textContent = ''; // Clear error message
 
                 // Dynamically generate form fields based on services
                 const services = {!! json_encode($services) !!};
+                let selectedServiceCount = 0;
 
                 services.forEach(function(service) {
                     const label = document.createElement('label');
@@ -224,18 +224,38 @@
                         totalCost = calculateTotalCost();
                         updateTotalCostElement(totalCost);
                     });
+
+                    // Count selected services
+                    input.addEventListener('change', function() {
+                        if (parseInt(input.value) > 0) {
+                            selectedServiceCount++;
+                        }
+                    });
                 });
 
-                // Add "Pay Now" button
                 const payNowButton = document.createElement('button');
                 payNowButton.setAttribute('type', 'button');
                 payNowButton.className = 'btn btn-primary';
                 payNowButton.textContent = 'Pay Now';
 
                 payNowButton.addEventListener('click', async function() {
-                    // Handle the payment logic
                     const balance = parseFloat(studentsData[0].balance);
                     const errorMessageElement = document.getElementById('errorMessage');
+
+                    // Check if any service has a quantity greater than 0
+                    const inputs = document.querySelectorAll('[name^="services["]');
+                    let totalQuantity = 0;
+                    inputs.forEach(function(input) {
+                        const quantity = parseInt(input.value) || 0;
+                        totalQuantity += quantity;
+                    });
+
+                    // If totalQuantity is 0, display an error message and return
+                    if (totalQuantity === 0) {
+                        errorMessageElement.textContent = 'Please select at least one service.';
+                        errorMessageElement.style.color = 'red';
+                        return;
+                    }
 
                     try {
                         // Check if balance is sufficient
@@ -260,9 +280,11 @@
                         const updatedBalance = previousBalance - totalCost;
 
                         // Construct the success message with previous and updated balances
-                        const successMessage = 'Money added successfully!<br>' +
+                        const successMessage =
+                            'Payment Successful!<br>' +
                             'Previous Balance: ৳' + previousBalance.toFixed(2) + '<br>' +
                             'Updated Balance: ৳' + updatedBalance.toFixed(2);
+
 
                         // Display success message
                         errorMessageElement.innerHTML = successMessage;
@@ -275,7 +297,6 @@
                     }
                 });
 
-
                 // Append "Pay Now" button to the container
                 servicesFormContainer.appendChild(payNowButton);
 
@@ -285,17 +306,13 @@
             });
 
             async function saveTransactionDetails(studentId, transactionId) {
-                // AJAX request to save transaction details for each service
-                const saveTransactionUrl = `/save-transaction`;
+                const saveTransactionUrl = '/save-transaction';
                 const inputs = document.querySelectorAll('[name^="services["]');
 
                 try {
                     // Loop through each service input
                     for (const input of inputs) {
-                        const serviceId = input.name.match(/\[(\d+)\]/)[
-                            1]; // Extract service ID from input name
-                        const serviceIdInt = parseInt(serviceId, 10); // Convert to integer if needed
-
+                        const serviceId = input.name.match(/\[(\d+)\]/)[1];
                         const quantity = parseInt(input.value) || 0;
 
                         // Skip saving entry for services with quantity 0
@@ -303,37 +320,49 @@
                             const price = parseFloat(input.getAttribute('data-price')) || 0;
                             const totalAmount = quantity * price;
 
+                            // Construct transaction details
                             const transactionDetails = {
-                                service_id: serviceIdInt,
+                                service_id: serviceId,
                                 student_id: studentId,
-                                transaction_id: transactionId, // Include transaction ID here
+                                transaction_id: transactionId,
                                 quantity: quantity,
-                                total_amount: totalAmount,
+                                total_amount: totalAmount
                             };
 
-                            // Make an AJAX request to save transaction details
+                            // Make AJAX request to save transaction details
                             const response = await fetch(saveTransactionUrl, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                        .getAttribute('content'),
+                                        .getAttribute('content')
                                 },
-                                body: JSON.stringify(transactionDetails),
+                                body: JSON.stringify(transactionDetails)
                             });
 
-                            const data = await response.json();
+                            // Check if the response is successful
+                            if (!response.ok) {
+                                throw new Error(
+                                    `Failed to save transaction details. Server returned status ${response.status}.`
+                                );
+                            }
 
-                            if (!data.success) {
-                                throw new Error('Error saving transaction details.');
+                            // Parse response JSON
+                            const responseData = await response.json();
+
+                            // Check if the response indicates success
+                            if (!responseData.success) {
+                                throw new Error(responseData.message ||
+                                    'Unknown error occurred while saving transaction details.');
                             }
                         }
                     }
                 } catch (error) {
                     console.error('Save transaction error:', error);
-                    throw new Error('Error saving transaction details.');
+                    throw new Error('Error saving transaction details. Please try again.');
                 }
             }
+
 
             function calculateTotalCost() {
                 const inputs = document.querySelectorAll('[name^="services["]');
@@ -362,6 +391,7 @@
 
         });
     </script>
+
 
 
 @endsection

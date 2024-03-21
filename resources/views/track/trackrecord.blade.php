@@ -11,7 +11,7 @@
 
             <!-- Search Form -->
             <div class="col-md-6 mb-3">
-                <form action="{{ route('trackrecord') }}" method="GET" class="form-inline mb-3">
+                <form action="{{ route('trackrecord.search') }}" method="GET" class="form-inline mb-3">
 
                     <!-- Add CSRF token -->
                     @csrf
@@ -22,14 +22,12 @@
                             placeholder="Search..." class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>
-                    <a href="{{ url('/trackrecord') }}">
+                    <a href="{{ route('trackrecord.index') }}">
                         <button type="button" class="btn btn-primary ml-2">Reset</button>
                     </a>
                 </form>
             </div>
         </div>
-
-
 
         @if (isset($studentTransactions))
             <!-- Display student transactions -->
@@ -67,8 +65,5 @@
                 </div>
             </div>
         @endif
-
-
     </div>
-
 @endsection

@@ -31,8 +31,9 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="{{ route('trackrecord') }}" class="sidebar-link">Track Records</a>
+                        <a href="{{ route('trackrecord.index') }}" class="sidebar-link">Track Records</a>
                     </li>
+
                 </ul>
             </li>
 
@@ -48,9 +49,7 @@
                     <li class="sidebar-item">
                         <a href="{{ route('searchaddmoney.search') }}" class="sidebar-link">Add Money</a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="{{ route('payment.show') }}" class="sidebar-link">Payment</a>
-                    </li>
+
                     <li class="sidebar-item">
                         <a href= "{{ route('generatereport') }}" class="sidebar-link">Generate Report</a>
                     </li>
@@ -77,7 +76,7 @@
             </li>
 
 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse"
                     aria-expanded="false">
                     <i class="fa-solid fa-circle-user pe-2"></i>
@@ -107,33 +106,10 @@
                     @endauth
 
                 </ul>
-            </li>
+            </li> --}}
 
 
-            </li>
-            <li class="sidebar-header">
-                Bulletin Board News
-            </li>
-            <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-target="#multi" data-bs-toggle="collapse"
-                    aria-expanded="false"><i class="fa-solid fa-newspaper pe-2"></i>
-                    Recent News
-                </a>
-                <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#level-1"
-                            data-bs-toggle="collapse" aria-expanded="false">Level 1</a>
-                        <ul id="level-1" class="sidebar-dropdown list-unstyled collapse">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Programming Club</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Office Notices</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+
         </ul>
     </div>
 </aside>

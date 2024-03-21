@@ -14,35 +14,10 @@ use Illuminate\Support\Str;
 
 
 
+
 class SearchPayServiceController extends Controller
 {
-    // public function searchStudent(Request $request)
-    // {
-    //     $search = $request->input('search');
-    //     $department = $request->input('department');
 
-    //     $students = Student::where(function ($query) use ($search) {
-    //         $query->where('rollnumber', 'like', "%$search%")
-    //             ->orWhere('email', 'like', "%$search%")
-    //             ->orWhere('rollnumber', 'like', "%$search%")
-    //             ->orWhere('mobile_number', 'like', "%$search%");
-    //     })
-    //     ->when($department, function ($query) use ($department) {
-    //         return $query->where('department_id', $department);
-    //     })
-    //     ->get();
-
-    //     $departments = Department::all();
-    //     $services = Service::all();
-
-    //     return view('searchpayservice.addmoney', [
-    //         'students' => $students,
-    //         'search' => $search,
-    //         'selectedDepartment' => $department,
-    //         'departments' => $departments,
-    //         'services' => $services,
-    //     ]);
-    // }
 
     //code changed on 07-02-2024
 
@@ -78,15 +53,7 @@ class SearchPayServiceController extends Controller
     {
         $services = Service::all(); // Adjust the query as needed based on your model
 
-        // Debugging line
-        // dd($services);
 
-        // return view('searchservice.execute', [
-
-        //     'search' => $request->input('search'),
-
-        //     'services' => $services,
-        // ]);
     }
 
     public function updateBalance($studentId, $amount)
@@ -117,47 +84,14 @@ class SearchPayServiceController extends Controller
     }
 
 
-
-
-    // public function saveTransaction(Request $request)
-    // {
-
-    //     try {
-    //         $data = $request->validate([
-    //             'service_id' => 'required|integer',
-    //             'transaction_id' => 'required|string',
-    //             'quantity' => 'required|integer',
-    //             'total_amount' => 'required|numeric',
-    //         ]);
-
-    //         // Assuming your TransactionHistory model has the corresponding attributes
-    //         TransactionHistory::create($data);
-    //         Log::info('Transaction data:', $data);
-
-    //         return response()->json(['success' => true]);
-    //     } catch (\Exception $e) {
-    //         // Log the error or handle it as needed
-    //         Log::error('Error saving transaction details: ' . $e->getMessage());
-    //         return response()->json(['success' => false, 'error' => $e->getMessage()]);
-    //     }
-    // }
-
-    //code chnaged on 08-02-2024
-
-
-
-
     public function saveTransaction(Request $request)
     {
         try {
-            // Generate a new unique transaction ID
-            $transaction_id = Str::uuid()->toString(); // Ensure the UUID is converted to a string
-
             // Extract other data from the request
             $data = $request->all();
 
-            // Assign the generated ID to the 'transaction_id' field
-            $data['transaction_id'] = $transaction_id;
+            // Assign the student_id to the transaction_id field
+            $data['transaction_id'] = $data['student_id'];
 
             // Log the received data
             Log::info('Received transaction data:', $data);

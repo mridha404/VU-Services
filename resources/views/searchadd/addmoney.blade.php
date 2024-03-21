@@ -89,13 +89,14 @@
                         </div>
                     @endif
                 </div>
-                
+
 
                 <div class="col-12">
                     <label for="date" class="form-label text-white">Date</label>
-                    <input type="date" name="date" class="form-control" id="date" value="{{ date('Y-m-d') }}" required readonly>
+                    <input type="date" name="date" class="form-control" id="date" value="{{ date('Y-m-d') }}"
+                        required readonly>
                 </div>
-                
+
                 <div class="col-12">
                     <label for="amount" class="form-label text-white">Amount</label>
                     <input type="number" name="amount" class="form-control" id="amount" required>
@@ -108,13 +109,14 @@
                         <option value="bank">Bank</option>
                     </select>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="display: none;">
                     <label for="transaction_type" class="form-label text-white">Transaction Type</label>
                     <select name="transaction_type" class="form-select">
                         <option value="credit">Credit</option>
                         <option value="debit">Debit</option>
                     </select>
                 </div>
+
 
                 <!-- Add a hidden input field to pass $students data -->
                 <input type="hidden" name="students" value="{{ json_encode($students) }}">

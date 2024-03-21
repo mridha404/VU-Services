@@ -3,7 +3,6 @@
 @extends('layouts.app-master')
 
 @section('content')
-
     <div class="card border-2 my-4" style="margin: 20px; padding: 20px;">
         <div class="card-header">
             <h5 class="card-title">
@@ -32,7 +31,7 @@
                     @endforeach
                 </select>
 
-                
+
             </div>
             <div class="col-12">
                 <label for="date" class="form-label text-white">Date</label>

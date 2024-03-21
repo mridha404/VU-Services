@@ -59,11 +59,6 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label for="department_id" class="form-label">Department ID</label>
-                <input type="text" class="form-control" id="department_id" name="department_id" readonly required>
-                <small class="text-muted">The department ID will be updated based on your selection.</small>
-            </div>
 
 
 
