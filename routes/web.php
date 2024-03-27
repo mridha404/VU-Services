@@ -22,6 +22,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrackRecordController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\CourseController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -219,5 +220,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
         Route::get('/weather', [WeatherController::class, 'getWeather']);
+
+
+        Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+        Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
     });
 });
