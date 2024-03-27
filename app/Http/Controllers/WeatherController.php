@@ -13,8 +13,8 @@ class WeatherController extends Controller
         $apiKey = 'cd257036ebf74c03ef785d3427877931';
 
         // Define latitude and longitude coordinates
-        $latitude = '23.684994'; // Replace with actual latitude
-        $longitude = '90.356331'; // Replace with actual longitude
+        $latitude = '24.3746'; // Replace with actual latitude
+        $longitude = '88.6004'; // Replace with actual longitude
 
         // Create a new Guzzle client instance
         $client = new Client();
